@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <title>AI Chatbot</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .chat-container {
+        width: 400px;
+        max-width: 100%;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .chat-box {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #f9f9f9;
+      }
+
+      .input-container {
+        display: flex;
+        padding: 10px;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        padding: 10px 15px;
+        font-size: 16px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .message {
+        margin-bottom: 10px;
+      }
+
+      .message.bot {
+        color: #007bff;
+      }
+
+      .message.user {
+        color: #333;
+        text-align: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="chat-container">
+      <div class="chat-box" id="chatBox">
+        <div class="message bot">
+          Hello! I'm your AI assistant. How can I help you today?
+        </div>
+      </div>
+      <div class="input-container">
+        <input type="text" id="userInput" placeholder="Type your message..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <script>
+      function sendMessage() {
+        var input = document.getElementById("userInput").value;
+        if (input.trim() === "") return;
+
+        // Display the user's message
+        addMessage(input, "user");
+
+        // AI response
+        var botResponse = getAIResponse(input);
+        addMessage(botResponse, "bot");
+
+        // Clear the input field
+        document.getElementById("userInput").value = "";
+      }
+
+      function addMessage(message, sender) {
+        var chatBox = document.getElementById("chatBox");
+        var messageElement = document.createElement("div");
+        messageElement.classList.add("message");
+        messageElement.classList.add(sender);
+        messageElement.textContent = message;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the bottom
+      }
+
+      function getAIResponse(input) {
+        // Simple AI response logic
+        var lowerCaseInput = input.toLowerCase();
+        if (lowerCaseInput.includes("hello") || lowerCaseInput.includes("hi")) {
+          return "Hello! How can I assist you today?";
+        } else if (lowerCaseInput.includes("how are you")) {
+          return "I am just a bot, but I am doing fine! How about you?";
+        } else if (lowerCaseInput.includes("your name")) {
+          return "I am an AI assistant, and I don’t have a specific name. How can I assist you?";
+        } else if (lowerCaseInput.includes("bye")) {
+          return "Goodbye! Have a great day!";
+        } else {
+          return "Sorry, I didn't quite understand that. Can you ask something else?";
+        }
+      }
+    </script>
+  </body>
+</html>
